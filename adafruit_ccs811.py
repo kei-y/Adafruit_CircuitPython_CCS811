@@ -97,12 +97,7 @@ class CCS811:
             i2c.write(buf, end=1)
         time.sleep(0.1)
 
-        # make sure there are no errors and we have entered application mode
-        if self.error:
-            raise RuntimeError(
-                "Device returned a error! Try removing and reapplying power to "
-                "the device and running the code again."
-            )
+        # we have entered application mode
         if not self.fw_mode:
             raise RuntimeError(
                 "Device did not enter application mode! If you got here, there may "
