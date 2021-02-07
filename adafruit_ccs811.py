@@ -128,8 +128,8 @@ class CCS811:
             with self.i2c_device as i2c:
                 i2c.write_then_readinto(buf, buf, out_end=1, in_start=1)
 
-            self._eco2 = (buf[1] << 8) | (buf[2])
-            self._tvoc = (buf[3] << 8) | (buf[4])
+            self._eco2 = ((buf[1] << 8) | (buf[2])) & 0x7fff
+            self._tvoc = ((buf[3] << 8) | (buf[4])) & 0x7fff
 
             if self.error:
                 raise RuntimeError("Error:" + str(self.error_code))
